@@ -3,7 +3,20 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 require('dotenv').config();
-const Router = require('./src/routes/resource');
+const config = require('config');
+const mongoose = require('mongoose');
+
+const mainRouter = require('./src/routes/main')
+const placesRouter = require('./src/routes/places');
+const mongoConnectionString = (config.get('database.mongodb.connectionString'))
+
+mongoose.connect(mongoConnectionString, 
+    {
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+    }
+).then(() => console.log('connected to MONGODB')).catch((err) => {throw(err)})
+
 const app = express();
 
 app.use(logger('dev'));
@@ -12,7 +25,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-//complete with your resource
-app.use('/resource', Router);
+app.use('/', mainRouter)
+app.use('/places', placesRouter);
 
 module.exports = app;
