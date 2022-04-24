@@ -1,6 +1,17 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+const LocationSchema = new Schema({
+    latitude: {
+        type: Number,
+        required: true
+    },
+    longitude: {
+        type: Number,
+        required: true
+    }
+})
+
 const PlaceSchema = new Schema({
     name: {
         type: String,
@@ -19,17 +30,6 @@ const PlaceSchema = new Schema({
         required: true
     }
 
-})
-
-const LocationSchema = new Schema({
-    latitude: {
-        type: Number,
-        required: true
-    },
-    longitude: {
-        type: Number,
-        required: true
-    }
 })
 
 const Place = mongoose.model('Place', PlaceSchema)

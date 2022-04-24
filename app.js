@@ -6,7 +6,6 @@ require('dotenv').config();
 const config = require('config');
 const mongoose = require('mongoose');
 
-const mainRouter = require('./src/routes/main')
 const placesRouter = require('./src/routes/places');
 const mongoConnectionString = (config.get('database.mongodb.connectionString'))
 
@@ -25,7 +24,6 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', mainRouter)
 app.use('/places', placesRouter);
 
 module.exports = app;

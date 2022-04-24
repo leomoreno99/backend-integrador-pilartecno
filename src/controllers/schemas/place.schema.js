@@ -4,12 +4,13 @@ const placeSchema = Joi.object({
     name: Joi.string().min(3).max(30).required(),
     description: Joi.string().min(3).max(250).required(),
     
-    imgUrl: Joi.array().items(Joi.string())...,
+    imgUrl: Joi.array().items(Joi.string().required()).required(),
 
-    location: Joi.array().items(Joi.object({
-        latitude: Joi.number()...,
-        longitude: Joi.number()...,
-    }))
+    location: Joi.object({
+        //Cuando le envio un string lo toma como numeros, ver video de Marcos, ahi explica porque pasa
+        latitude: Joi.number().required(),
+        longitude: Joi.number().required(),
+    })
 })
 
 module.exports = { placeSchema }
