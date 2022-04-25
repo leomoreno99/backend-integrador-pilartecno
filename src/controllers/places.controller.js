@@ -5,7 +5,8 @@ const { placeSchema } = require('./schemas/place.schema');
 const getPlaces = async (req, res) => {
     try {
         const places = await Place.find({})
-        res.status(200).json(places)    
+        console.log(places)
+        res.status(200).json(places)
     } catch (err) {
         res.status(500).json({
             code: 'Internal server error',
