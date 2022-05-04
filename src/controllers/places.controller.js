@@ -5,7 +5,6 @@ const { placeSchema } = require('./schemas/place.schema');
 const getPlaces = async (req, res) => {
     try {
         const places = await Place.find({})
-        console.log(places)
         res.status(200).json(places)
     } catch (err) {
         res.status(500).json({
@@ -30,6 +29,7 @@ const getPlaceById = async (req, res) => {
 }
 
 const createPlace = async (req, res) => {
+    // const { name, description, imgUrl, location } = req.body
     const data = req.body
     try {
         Joi.assert(data, placeSchema)
@@ -40,6 +40,7 @@ const createPlace = async (req, res) => {
             message: 'Successful request'
         })
     } catch (err) {
+        console.log(err)
         res.status(400).json({
             code: 'bad_request',
             message: err.details[0].message,
@@ -69,6 +70,7 @@ const updatePlace = async (req, res) => {
 const deletePlace = async (req, res) => {
     try {
         //Arreglar bug al ingresar un ID no existente.
+        console.log(req.params.id)
         await Place.findByIdAndDelete(req.params.id)
         res.status(200).json({
             code: 'OK',

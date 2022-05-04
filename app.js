@@ -5,6 +5,7 @@ const logger = require('morgan');
 require('dotenv').config();
 const config = require('config');
 const mongoose = require('mongoose');
+const cors = require('cors');
 
 const placesRouter = require('./src/routes/places');
 const mongoConnectionString = (config.get('database.mongodb.connectionString'))
@@ -17,6 +18,9 @@ mongoose.connect(mongoConnectionString,
 ).then(() => console.log('connected to MONGODB')).catch((err) => {throw(err)})
 
 const app = express();
+
+app.use(cors())
+// app.set('port', process.env.PORT || 4000);
 
 app.use(logger('dev'));
 app.use(express.json());
